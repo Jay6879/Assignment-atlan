@@ -393,6 +393,12 @@ function App() {
   };
 
   const executeQuery = () => {
+    // Check if SQL input is empty
+    if (!sqlInput.trim()) {
+      alert('Please enter a SQL query before running.');
+      return;
+    }
+
     // Randomly select a predefined query index
     const randomIndex = Math.floor(Math.random() * queries.length);
     
