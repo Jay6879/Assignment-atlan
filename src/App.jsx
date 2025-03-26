@@ -24,8 +24,8 @@ function App() {
   });
   const [loading, setLoading] = useState(true);
   const [displayData, setDisplayData] = useState([]);
-  const [selectedQueryIndex, setSelectedQueryIndex] = useState(0);
-  const [sqlInput, setSqlInput] = useState('');
+  const [selectedQueryIndex, setSelectedQueryIndex] = useState(7);
+  const [sqlInput, setSqlInput] = useState('SELECT * FROM customers');
 
   // Fetch JSON data concurrently on mount
   useEffect(() => {
@@ -135,11 +135,14 @@ function App() {
     ];
   }, [jsonData]);
 
-  // When queries update, initialize SQL text area and displayData with first query's data
+  // When queries update, initialize SQL text area and displayData with customers query data
   useEffect(() => {
     if (queries.length > 0) {
-      setSqlInput(queries[0].query);
-      setDisplayData(queries[0].data);
+      const customersQueryIndex = queries.findIndex(q => q.query === 'SELECT * FROM customers');
+      if (customersQueryIndex !== -1) {
+        setSqlInput(queries[customersQueryIndex].query);
+        setDisplayData(queries[customersQueryIndex].data);
+      }
     }
   }, [queries]);
 
